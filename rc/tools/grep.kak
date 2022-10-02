@@ -4,6 +4,10 @@ declare-option -docstring "name of the client in which utilities display informa
     str toolsclient
 declare-option -hidden int grep_current_line 0
 
+set-face global GrepFilename cyan
+set-face global GrepLine green
+set-face global GrepColumn GrepLine
+
 define-command -params .. -docstring %{
     grep [<arguments>]: grep utility wrapper
     All optional arguments are forwarded to the grep utility
@@ -23,11 +27,11 @@ define-command -params .. -docstring %{
                hook -always -once buffer BufCloseFifo .* %{ nop %sh{ rm -r $(dirname ${output}) } }
            }"
 }}
-complete-command grep file 
+complete-command grep file
 
 hook -group grep-highlight global WinSetOption filetype=grep %{
     add-highlighter window/grep group
-    add-highlighter window/grep/ regex "^((?:\w:)?[^:\n]+):(\d+):(\d+)?" 1:cyan 2:green 3:green
+    add-highlighter window/grep/ regex "^((?:\w:)?[^:\n]+):(\d+):(\d+)?" 1:GrepFilename 2:GrepLine 3:GrepColumn
     add-highlighter window/grep/ line %{%opt{grep_current_line}} default+b
     hook -once -always window WinSetOption filetype=.* %{ remove-highlighter window/grep }
 }
