@@ -392,6 +392,10 @@ are exclusively available to built-in options.
         *terminal_status_bar*:::
             if *yes* or *true* a scroll bar will be displayed.
 
+        *terminal_info_inline_borders*:::
+            if *yes* or *true*, borders will be drawn around info boxes with the
+            *inline* style.
+
 [[startup-info]]
 *startup_info_version* `int`::
     _default_ 0 +
